@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html ng-app="salasModule">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker.css" rel="stylesheet">
+    <!--link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet"-->
+    <link href="css/bootstrap-slider.min.css" rel="stylesheet" type="text/css" />
+
+    <!--link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="salasControl">
+ <div class="container">
+
+  <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">HALL - Salas de Estudo</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="salas.html"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Salas de estudo</a></li>
+              <li><a href="horas.html"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Horas de estudo</a></li>
+              <li><a href="reserva.html"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Minha reserva</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+<div class="row">
+<div class="col-lg-12">
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon3">Quando?</span>
+  <input type="text" id="txtQuando" class="form-control" placeholder="Escolha um data..." aria-describedby="basic-addon3">
+</div>
+</div>
+</p>
+<div class="col-lg-12">
+<div class="input-group">
+  <!--span class="input-group-addon" id="basic-addon3">Que horas?</span-->
+  <!--input type="date" id="txtHoras" class="form-control" value="12:00" placeholder="Escolha um horário..." aria-describedby="basic-addon3" ng-model="horas" ng-change="limpaLojasPosicoes();"/-->
+  às 
+  <span id="spanHoras">12:00</span>
+  horas
+  <span class="glyphicon glyphicon-minus"></span>
+  <input id="txtSliderHoras" class="form-control" type="text" data-slider-min="0" data-slider-max="24" data-slider-step="1" data-slider-value="12" />
+  <span class="glyphicon glyphicon-plus"></span> 
+  por
+  <span id="spanDuracao">3 horas</span>
+   <span class="glyphicon glyphicon-minus"></span>
+  <input id="txtSliderDuracao" class="form-control" type="text" data-slider-min="2" data-slider-max="10" data-slider-step="1" data-slider-value="3"/>
+  <span class="glyphicon glyphicon-plus"></span>
+  
+</div>
+</p>
+</div>
+</div> 
+
+
+
+<p></p>
+<div class="jumbotron">
+ 
+  
+  <p>Aqui você pode pesquisar as salas que temos disponíveis em sua região. </p>
+  <p></p>
+  <p>
+  
+  <div class="btn-group">
+  <button 
+    type="button" 
+    class="btn-primary btn-lg dropdown-toggle" 
+    id="dropdownMenu1"
+    data-toggle="dropdown" 
+    aria-haspopup="true" 
+    aria-expanded="true" ng-click="limpaLojasPosicoes();">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 
+    Cidade <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li ng-repeat="cidade in cidades" ng-click="selecionaCidade(cidade);"><a href="#">{{cidade.nome}}</a></li>
+  </ul>
+</div>
+  </p>
+
+ <ol class="breadcrumb" ng-show="mostraNav">
+  <li ng-repeat="nav in navLojas">{{nav.nome}}</li>
+</ol>
+
+<!--
+</div>
+
+
+<div class="container">
+-->
+
+
+<div id="divLojas" class="dropdown" ng-show="mostraLojas">
+
+  <button 
+  class="btn btn-default dropdown-toggle" 
+  type="button" 
+  d="dropdownMenu2" 
+  data-toggle="dropdown" 
+  aria-haspopup="true" 
+  aria-expanded="true">
+    Lojas
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <li ng-repeat="loja in lojas" ng-click="selecionaLoja(loja);"><a href="#">{{loja.nome}}</a></li>
+  </ul>
+
+   
+</div>
+</p>
+
+
+<div id="divtipoposicoes" ng-show="mostraPosicoes">
+  <ul class="list-group">
+  <li class="list-group-item">
+    <button type="button" class="list-group-item" 
+      ng-repeat="tipoPosicao in tipoPosicoes" ng-click="selecionaTipoPosicao(tipoPosicao);">
+      {{tipoPosicao.nome}}
+        <span class="badge">{{tipoPosicao.qtd}}</span>
+    </button>
+  </li>
+  </ul>
+</div>
+
+
+  <div ng-show="mostraMapaPosicao">
+  
+  <ul class="list-group">
+  <li class="list-group-item">
+    <button type="button" class="list-group-item" ng-repeat="posicao in posicoes" ng-click="reservarPosicao(posicao);">{{posicao.nome}}
+      <span class="btn btn-success pull-right glyphicon glyphicon-ok" aria-hidden="true" ng-if="posicao.disponivel"> Reservar </span> 
+      <span class="btn btn-danger pull-right glyphicon glyphicon-remove" aria-hidden="true" ng-if="!posicao.disponivel"> ocupada </span> 
+     
+    </button>
+  </li>
+  </ul>
+  </div>
+
+</div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/angular.min.js"></script>
+
+
+    <script src="js/bootstrap-slider.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <!--script src="js/bootstrap-datetimepicker.min.js"></script-->
+
+    <script src="js/hall.js"></script>
+
+
+
+   
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+    <script type="text/javascript">
+      $('#datetimepicker').datetimepicker({
+        pickDate: false,
+        pickSeconds: false,
+        language: 'pt-BR'
+      });
+    </script>
+    
+   
+  </body>
+
+
+
+</html>
